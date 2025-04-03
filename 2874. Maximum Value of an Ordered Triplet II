@@ -1,0 +1,21 @@
+class Solution {
+public:
+    long long maximumTripletValue(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> suffixMax(n, 0);
+        suffixMax[n - 1] = nums[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            suffixMax[i] = max(suffixMax[i + 1], nums[i]);
+        }
+        int mexii = nums[0];
+        long long mexi = 0;
+        for (int j=1; j < n-1; j++) {
+            if (mexii > nums[j]) {
+                long long temp=(long long)(mexii - nums[j]) * suffixMax[j + 1];
+                mexi = max(mexi, temp);
+            }
+            mexii=max(mexii,nums[j]);
+        }
+        return mexi;
+    }
+};
