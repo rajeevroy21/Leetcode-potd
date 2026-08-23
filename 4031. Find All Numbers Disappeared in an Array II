@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<vector<int>> findDisappearedNumbers(vector<int>& nums, int lower,
+                                               int upper) {
+        int start = lower;
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ans;
+        for (auto num : nums) {
+            if (num < lower || num > upper)
+                continue;
+            if (start < num) {
+                ans.push_back({start, num - 1});
+            }
+            start = num + 1;
+        }
+        if (start <= upper)
+            ans.push_back({start, upper});
+        return ans;
+    }
+};
